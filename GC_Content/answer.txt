@@ -1,0 +1,1 @@
+ID with the maximum GC content is Rosalind_6288 at 52.333333%
