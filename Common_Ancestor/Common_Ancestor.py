@@ -57,7 +57,7 @@ def Common_Ancestor(A_count, T_count, G_count, C_count):
 		elif C_count[i] >= A_count[i] and C_count[i] >= T_count[i] and C_count[i] >= G_count[i]:
 			common_sequence += "C"
 	return common_sequence
-	
+
 if __name__ == "__main__":
 	script, filename = argv
 	sequences = load_sequences(filename)
