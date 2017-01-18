@@ -38,7 +38,7 @@ def IntronSplice(DNA,Introns):
 		DNA = DNA.replace(intron, "")
 	return DNA
 	
-#Transcribes RNA to protein string	
+#Translates RNA to protein string	
 def RNA_to_Protein(RNA):
 	protein = ""
 	for i in range(0, len(RNA), 3):
