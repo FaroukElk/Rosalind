@@ -15,7 +15,6 @@ def ORF_Search(RNA):
 					break
 				if (codon_protein_pairs[codon2] == "STOP"):
 					proteins.add(protein)
-					protein = ""
 					break
 				else:
 					protein += codon_protein_pairs[codon2]
