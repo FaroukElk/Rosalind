@@ -1,6 +1,7 @@
 from sys import argv
 
-def load_sequences(FASTA_File): #loads DNA sequences from FASTA file format
+#loads DNA sequences from FASTA file format
+def load_sequences(FASTA_File): 
 	sequence_list = []
 	sequence = ""
 	start = True
@@ -17,7 +18,8 @@ def load_sequences(FASTA_File): #loads DNA sequences from FASTA file format
 		sequence_list.append(sequence)
 	return sequence_list
 
-def Nucleotide_Count(sequences): #Counts which nucleotide base is in each of the DNA sequences position
+#Counts which nucleotide base is in each of the DNA sequences position
+def Nucleotide_Count(sequences): 
 	A_count_and_position, C_count_and_position, G_count_and_position, T_count_and_position = [], [], [], []
 	i = 0
 	while i < len(sequences[0]):
@@ -41,7 +43,9 @@ def Nucleotide_Count(sequences): #Counts which nucleotide base is in each of the
 		C_count_and_position.append(C_count)
 	return A_count_and_position, T_count_and_position, G_count_and_position, C_count_and_position
 		
-def Common_Ancestor(A_count, T_count, G_count, C_count): #The nucleotides with the highest count at each position are used to hypothesize the common DNA ancestor. Precedence is A > T > G > C
+"""The nucleotides with the highest count at each position are used to hypothesize the common DNA ancestor. 
+Precedence is A > T > G > C"""	
+def Common_Ancestor(A_count, T_count, G_count, C_count): 
 	common_sequence = ""
 	for i in range(len(A_count)):
 		if A_count[i] >= T_count[i] and A_count[i] >= C_count[i] and A_count[i] >= G_count[i]:
