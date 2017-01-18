@@ -1,32 +1,11 @@
 from sys import argv
 
-#loads DNA sequences from FASTA file format
-def load_sequences(FASTA_File): 
-	sequence_list = []
-	sequence = ""
-	start = True
-	with open(FASTA_File) as sequence_data:
-		for line in sequence_data:
-			if start == True:
-				start = False
-			else:
-				if line.startswith(">"):
-					sequence_list.append(sequence)
-					sequence = ""
-				else:
-					sequence += line.strip()
-		sequence_list.append(sequence)
-	return sequence_list
-
-#Counts which nucleotide base is in each of the DNA sequences position
+#Counts the nucleotides at each position of the DNA sequence list
 def Nucleotide_Count(sequences): 
 	A_count_and_position, C_count_and_position, G_count_and_position, T_count_and_position = [], [], [], []
 	i = 0
 	while i < len(sequences[0]):
-		A_count = 0 
-		G_count = 0
-		C_count = 0
-		T_count = 0
+		A_count, G_count, C_count, T_count = 0, 0, 0, 0
 		for j in range(len(sequences)):
 			if sequences[j][i] == "A":
 				A_count += 1
@@ -57,6 +36,24 @@ def Common_Ancestor(A_count, T_count, G_count, C_count):
 		elif C_count[i] >= A_count[i] and C_count[i] >= T_count[i] and C_count[i] >= G_count[i]:
 			common_sequence += "C"
 	return common_sequence
+
+#loads DNA sequences from FASTA file format
+def load_sequences(FASTA_File): 
+	sequence_list = []
+	sequence = ""
+	start = True
+	with open(FASTA_File) as sequence_data:
+		for line in sequence_data:
+			if start == True:
+				start = False
+			else:
+				if line.startswith(">"):
+					sequence_list.append(sequence)
+					sequence = ""
+				else:
+					sequence += line.strip()
+		sequence_list.append(sequence)
+	return sequence_list
 
 if __name__ == "__main__":
 	script, filename = argv
