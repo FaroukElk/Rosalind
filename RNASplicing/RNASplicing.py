@@ -1,6 +1,6 @@
 from sys import argv
 	
-#Amino acid codon pairs	
+#Amino acid codon pairs	lookup
 NucleotideAAPairs = {
 "UUU": "F", "UUC": "F",
 "UUA": "L", "UUG": "L",
@@ -56,21 +56,21 @@ def loadSequenceAndIntrons(filename):
 		intron = ""
 		intronlist = []
 		for line in data:
-			if line.startswith(">") and start == 0:
+			if line.startswith(">") and start == 0: #checks for start of file
 				sequence = ""
 				start = 1
-			elif start == 1:
-				if line.startswith(">"):
+			elif start == 1: #checks if still reading DNA sequence
+				if line.startswith(">"): #next ">" is start of intron sequence
 					start = 2
 				else:
-					sequence += line.strip()
+					sequence += line.strip() #adds line to DNA sequence
 			else:
-				if line.startswith(">") and intron != "":
+				if line.startswith(">") and intron != "": #checks if start of intron sequence
 					intronlist.append(intron)
 					intron = ""
 				else:
-					intron += line.strip()
-		intronlist.append(intron)
+					intron += line.strip() #add line to intron sequence
+		intronlist.append(intron) #appends last intron to introlist
 		return sequence, intronlist
 	
 if __name__ == "__main__":
