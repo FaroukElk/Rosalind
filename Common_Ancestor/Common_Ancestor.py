@@ -6,7 +6,7 @@ def Nucleotide_Count(sequences):
 	i = 0
 	while i < len(sequences[0]):
 		A_count, G_count, C_count, T_count = 0, 0, 0, 0
-		for j in range(len(sequences)):
+		for j in range(len(sequences)): #for each sequence, count the nucleotide at the position
 			if sequences[j][i] == "A":
 				A_count += 1
 			elif sequences[j][i] == "T":
@@ -16,6 +16,7 @@ def Nucleotide_Count(sequences):
 			else:
 				C_count += 1
 		i += 1
+		#append the nucleotide count to each list
 		A_count_and_position.append(A_count)
 		T_count_and_position.append(T_count)
 		G_count_and_position.append(G_count)
@@ -43,22 +44,19 @@ def load_sequences(FASTA_File):
 	sequence = ""
 	start = True
 	with open(FASTA_File) as sequence_data:
+		next(sequence_data) #skip the first line
 		for line in sequence_data:
-			if start == True:
-				start = False
-			else:
-				if line.startswith(">"):
+				if line.startswith(">"): #checks if new sequence and appends to sequence list
 					sequence_list.append(sequence)
 					sequence = ""
 				else:
 					sequence += line.strip()
-		sequence_list.append(sequence)
+		sequence_list.append(sequence) #adds the last sequence to list
 	return sequence_list
 
 if __name__ == "__main__":
 	script, filename = argv
 	sequences = load_sequences(filename)
-	test_sequences = ["ATCCAGCT", "GGGCAACT", "ATGGATCT", "AAGCAACC", "TTGGAACT", "ATGCCATT", "ATGGCACT"]
 	ACount, TCount, GCount, CCount = Nucleotide_Count(sequences)
 	with open("answer.txt", "w") as answer:
 		answer.write(Common_Ancestor(ACount, TCount, GCount, CCount))
