@@ -8,11 +8,11 @@ def Shared_Motif(sequences, maxlength, minlength):
 				break
 			else:
 				substring = sequences[0][i:i+minlength]
-				if checkAll(substring, sequences):
+				if checkAll(substring, sequences): #if substring passes check, then a longest substring is found
 						return substring
 		minlength -= 1
 
-def checkAll(substring, sequences):
+def checkAll(substring, sequences): # check if substring in all strings
 		for sequence in sequences:
 			if substring not in sequence:
 				return False
@@ -27,19 +27,17 @@ def load_sequences(FASTA_File):
 	minlength = 10000
 	maxlength = 0
 	with open(FASTA_File) as sequence_data:
+		next(sequence_data) #skip first line
 		for line in sequence_data:
-			if start == True:
-				start = False
+			if line.startswith(">"):
+				sequence_list.append(sequence)
+				if len(sequence) < minlength: #checks for shortest sequence in list
+					minlength = len(sequence)
+				if len(sequence) > maxlength: #checks for longest sequence in list
+					maxlength = len(sequence)
+				sequence = ""
 			else:
-				if line.startswith(">"):
-					sequence_list.append(sequence)
-					if len(sequence) < minlength:
-						minlength = len(sequence)
-					if len(sequence) > maxlength:
-						maxlength = len(sequence)
-					sequence = ""
-				else:
-					sequence += line.strip()
+				sequence += line.strip()
 		sequence_list.append(sequence)
 	return sequence_list, minlength, maxlength
 	
