@@ -63,16 +63,16 @@ codon_protein_pairs = {
 if __name__ == "__main__":
 	script, filename = argv
 	sequence = ""
-	with open(filename) as sequence_data:
+	with open(filename) as sequence_data: #load DNA sequence
 		next(sequence_data)
 		for line in sequence_data:
 			sequence += line.strip()
-	reverseDNA = ReverseComplement(sequence)
-	reverseRNA = DNAtoRNA(reverseDNA)
-	ORFReverse = ORF_Search(reverseRNA)
-	ORFSequence = ORF_Search(DNAtoRNA(sequence))
+	reverseDNA = ReverseComplement(sequence) #Find reverse complement of DNA sequence
+	reverseRNA = DNAtoRNA(reverseDNA) #converts reverse complement of sequence to RNA
+	ORFReverse = ORF_Search(reverseRNA) #searches for ORFs of the reverse complement
+	ORFSequence = ORF_Search(DNAtoRNA(sequence)) #searches for ORFs of the original sequence
 	ORFSequence.update(ORFReverse)
 	with open("answer.txt",	"w") as answer:
-		for protein in ORFSequence:
+		for protein in ORFSequence: #writes each protein to output file
 			answer.write(protein)
 			answer.write("\n")
